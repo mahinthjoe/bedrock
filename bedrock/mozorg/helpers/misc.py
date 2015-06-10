@@ -35,17 +35,6 @@ def convert_to_high_res(url):
     return add_string_to_image_url(url, 'high-res')
 
 
-@jingo.register.function
-@jinja2.contextfunction
-def php_url(ctx, url):
-    """Process a URL on the PHP site and prefix the locale to it."""
-    locale = getattr(ctx['request'], 'locale', None)
-
-    # Do this only if we have a locale and the URL is absolute
-    if locale and url[0] == '/':
-        return path.join('/', locale, url.lstrip('/'))
-    return url
-
 
 @jingo.register.function
 def url(viewname, *args, **kwargs):
