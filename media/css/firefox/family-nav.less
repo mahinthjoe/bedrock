@@ -4,9 +4,6 @@
 
 @import "../sandstone/lib.less";
 
-@mozIDBlue: #0c99d5;
-@mozIDGrey: #56565a;
-
 // mixin for sprite images
 .fxfamilynav-sprite(@top) {
     background-image: url(/media/img/firefox/family/nav-sprite5.png);
@@ -258,6 +255,51 @@
             }
         }
 
+        // FxOS gets special styles to differentiate from browsers
+        .fxos {
+            .clearfix();
+
+            .separator {
+                display: block;
+                float: left;
+                margin: 0 25px 0 5px;
+                width: 2px;
+                height: 70px;
+
+                &:before {
+                    float: left;
+                    display: block;
+                    content: '';
+                    width: 1px;
+                    height: 100%;
+                    #gradient > .vertical(fade(@mozIDBlue, 0), @mozIDBlue);
+                    background-color: transparent;
+                }
+
+                &:after {
+                    float: left;
+                    display: block;
+                    content: '';
+                    width: 1px;
+                    height: 100%;
+                    #gradient > .vertical(fade(#85d0ef, 0), #85d0ef);
+                    background-color: transparent;
+                }
+            }
+
+            .primary-link {
+                float: left;
+
+                div {
+                    border: 1px solid #85d0ef;
+                    border-radius: 6px;
+                    padding: 2px 8px;
+                    background: @mozIDBlue;
+                    box-shadow: inset 0 0 1px #85d0ef;
+                }
+            }
+        }
+
         // show subnav on hover (CSS only menu)
         li {
             &:hover,
@@ -401,38 +443,57 @@
         padding-top: 30px;
 
         // primary nav just stacks for mobile
-        .primarynav > li {
-            float: none;
-            margin: 0;
-            border-bottom: 1px solid rgba(187, 187, 187, 0.6);
-            padding-right: 0;
+        .primarynav {
+            & > li {
+                float: none;
+                margin: 0;
+                border-bottom: 1px solid rgba(187, 187, 187, 0.6);
+                padding-right: 0;
 
-            & > a,
-            & > .primary-link {
-                display: block;
-                text-align: center;
-                color: @mozIDBlue;
-                padding: 6px @baseLine 4px;
-                .font-size(@largeFontSize);
-                line-height: @largeFontSize;
-                max-width: none;
-                opacity: 1;
-                height: auto;
+                & > a,
+                & > .primary-link {
+                    display: block;
+                    text-align: center;
+                    color: @mozIDBlue;
+                    padding: 6px @baseLine 4px;
+                    .font-size(@largeFontSize);
+                    line-height: @largeFontSize;
+                    max-width: none;
+                    opacity: 1;
+                    height: auto;
 
-                &:focus + .subnav {
-                    display: none;
+                    &:focus + .subnav {
+                        display: none;
+                    }
+
+                    &.selected {
+                        border-color: transparent;
+                    }
                 }
 
-                &.selected {
-                    border-color: transparent;
+                &:hover,
+                &:focus,
+                &.active {
+                    .subnav {
+                        display: none;
+                    }
                 }
             }
 
-            &:hover,
-            &:focus,
-            &.active {
-                .subnav {
+            .fxos {
+                .separator {
                     display: none;
+                }
+
+                .primary-link {
+                    float: none;
+
+                    div {
+                        border: none;
+                        padding: 0;
+                        background: transparent;
+                        box-shadow: none;
+                    }
                 }
             }
         }
@@ -635,8 +696,29 @@ html[lang^='en'] .fxfamilynav .subsubnav a {
                 border-color: @mozIDBlue;
             }
 
-            &.primarynav .primary-link {
-                color: @mozIDBlue;
+            &.primarynav {
+                .primary-link {
+                    color: @mozIDBlue;
+                }
+
+                .fxos {
+                    .separator {
+                        &:before {
+                            #gradient > .vertical(fade(#92c5e9, 0), #92c5e9);
+                            background-color: transparent;
+                        }
+
+                        &:after {
+                            #gradient > .vertical(fade(#ddf0fa, 0), #ddf0fa);
+                            background-color: transparent;
+                        }
+                    }
+                    .primary-link div {
+                        background: #cce8f7;
+                        border-color: #fff;
+                        box-shadow: inset 0 0 1px #fff;
+                    }
+                }
             }
 
             &.subnav a {
@@ -666,8 +748,14 @@ html[lang^='en'] .fxfamilynav .subsubnav a {
         }
 
         @media (max-width: @breakTablet) {
-            ul.primarynav a.selected {
-                border-color: transparent;
+            ul.primarynav {
+                a.selected {
+                    border-color: transparent;
+                }
+
+                .fxos .primary-link div {
+                    background: transparent;
+                }
             }
         }
     }
