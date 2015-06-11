@@ -257,34 +257,15 @@
 
         // FxOS gets special styles to differentiate from browsers
         .fxos {
-            .clearfix();
-
-            .separator {
-                display: block;
+            &:before {
                 float: left;
-                margin: 0 25px 0 5px;
-                width: 2px;
-                height: 70px;
-
-                &:before {
-                    float: left;
-                    display: block;
-                    content: '';
-                    width: 1px;
-                    height: 100%;
-                    #gradient > .vertical(fade(@mozIDBlue, 0), @mozIDBlue);
-                    background-color: transparent;
-                }
-
-                &:after {
-                    float: left;
-                    display: block;
-                    content: '';
-                    width: 1px;
-                    height: 100%;
-                    #gradient > .vertical(fade(#85d0ef, 0), #85d0ef);
-                    background-color: transparent;
-                }
+                margin: 20px 25px 0 5px;
+                display: block;
+                content: '';
+                width: 1px;
+                height: 31px;
+                .at2x('/media/img/firefox/family/nav-separator-white.png', 1px, 3px);
+                background-repeat: repeat-y;
             }
 
             .primary-link {
@@ -323,9 +304,24 @@
 
         & > li {
             &.hassubsubnav {
-                border-right: 1px solid rgba(12, 153, 213, 0.3);
+                position: relative;
                 margin-right: 20px;
                 padding-right: 20px;
+
+                &:after {
+                    clear: both;
+                    visibility: visible;
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    display: block;
+                    width: 1px;
+                    height: 67px;
+                    margin-top: 6px;
+                    .at2x('/media/img/firefox/family/nav-separator-black.png', 1px, 3px);
+                    background-repeat: repeat-y;
+                }
             }
 
             & > a {
@@ -481,7 +477,8 @@
             }
 
             .fxos {
-                .separator {
+                &:before {
+                    content: none;
                     display: none;
                 }
 
@@ -702,17 +699,10 @@ html[lang^='en'] .fxfamilynav .subsubnav a {
                 }
 
                 .fxos {
-                    .separator {
-                        &:before {
-                            #gradient > .vertical(fade(#92c5e9, 0), #92c5e9);
-                            background-color: transparent;
-                        }
-
-                        &:after {
-                            #gradient > .vertical(fade(#ddf0fa, 0), #ddf0fa);
-                            background-color: transparent;
-                        }
+                    &:before {
+                        .at2x('/media/img/firefox/family/nav-separator-black.png', 1px, 3px);
                     }
+
                     .primary-link div {
                         background: #cce8f7;
                         border-color: #fff;
