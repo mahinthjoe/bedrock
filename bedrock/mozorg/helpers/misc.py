@@ -35,7 +35,6 @@ def convert_to_high_res(url):
     return add_string_to_image_url(url, 'high-res')
 
 
-
 @jingo.register.function
 def url(viewname, *args, **kwargs):
     """Helper for Django's ``reverse`` in templates."""
